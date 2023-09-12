@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<p class="h3">Order Detail</p>
+  <table class="table">
+      <tr class="p-2 "><td >Order Status</td><td>
+          <button type="button" class="btn btn-warning">{{order.order_status}}</button>
+          </td></tr>
+   <tr><td>Order Id</td><td>{{order.order_id}}</td></tr>
+      {% for product in products %}
+      <tr class="p-2 "><td><p>{{product.product.name}}</p>
+      <p>{{product.product.sell_price}} MMK * {{product.quantity}}</p></td>
+      <td>{{product.amount}} MMK</td><p hidden class="total">{{product.amount}}</p></tr>
+
+      {% endfor %}
+      <tr class="p-2 "><td >Delivery Fee</td><td id="fee"></td></tr>
+   <tr class="p-2 "><td >Total</td><td id="overall_total">{{order.amount}} MMK</td></tr>
+   <tr class="p-2 "><td >Order Status</td><td>{{order.order_status}}</td></tr>
+   <tr class="p-2 "><td >Address</td><td>{{order.user_address}}</td></tr>
+      <tr class="p-2 "><td >Payment Type</td><td>{{order.user_payment}}</td></tr>
+  <tr class="p-2 "><td >Payment Status</td><td>{{order.payment_status}}</td></tr>
+      <tr class="p-2 "><td >Note</td><td>{{order.user_address.special_instruction}}</td></tr>
+      <tr class="p-2 "><td >Date</td><td>{{order.created_date}}</td></tr>
+  </table>
+<a class="btn btn-success" href="{% url 'account' %}">Account</a>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+const totalElements = document.querySelectorAll(".total");
+let total = 0;
+
+    totalElements.forEach(totalElement => {
+        let currentTotal = parseInt(totalElement.textContent);
+        if (!isNaN(currentTotal)) {
+            total += currentTotal;
+        }
+    });
+    document.getElementById("fee").innerHTML = parseInt(document.getElementById("overall_total").innerHTML)-total + ' MMK';
+});
+</script>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "manager/base.html" %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container my-5">
+    <form action="" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <h3>Edit Product</h3>
+        {{ form|crispy}}
+        <button type="submit" class="btn btn-primary">Edit Product</button>
+    </form>
+</div>
+
+
+{% endblock %}

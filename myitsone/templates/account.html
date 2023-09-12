@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+ <div class="pt-3">
+  <div class="d-flex justify-content-end mb-3">
+   <button type="button" class="btn btn-dark" onclick="location.href='{% url 'logout' %}'">Log out</button>
+  </div>
+  <p class="h3">Personal Information</p>
+  <table class="table">
+   <tr><td>Username</td><td>{{account.username}}</td></tr>
+   <tr class="p-2 "><td >Password</td><td>******</td></tr>
+   <tr class="p-2 "><td >Email</td><td>{{account.email}}</td></tr>
+   <tr class="p-2 "><td >Phone</td><td>{{account.phone}}</td></tr>
+  </table>
+     <div class="table-responsive">
+  <p class="h3">Order Detail</p>
+         {% if orders %}
+  <table class="table fs-6">
+   <thead>
+      <tr>
+        <th>Order Id</th>
+          <th>Payment</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+   <tbody>
+
+  {% for order in orders %}
+   <tr>
+    <td>{{order.order_id}}</td><td>{{order.user_payment}}</td>
+    <td>{{order.amount}} MMK</td>
+    <td>{{order.order_status}}</td>
+    <td><a href="{{order.get_absolute_url}}" class="btn btn-secondary">Detail</a></td>
+   </tr>
+   {% endfor %}
+
+
+   </tbody>
+  </table>
+         {% else %}
+  <h3>No Order</h3>
+{% endif %}
+     </div>
+ </div>
+</div>
+
+ {% endblock %}

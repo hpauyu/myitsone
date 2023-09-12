@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="row pt-3">
+    {% if products %}
+    {% for x in products %}
+    <div class="col-6 p-1">
+        <div class="w-75 mx-auto border border-2 text-center pb-2">
+            <a href="{{x.get_absolute_url}}" class="text-decoration-none">
+                <div class="p-1"><img src="{{x.image.url}}" alt="{{x.name}}" class="rounded-0 img-fluid"></div>
+            </a>
+            <a href="" class="text-decoration-none">
+                <p class="h3 name">{{x.name}}</p>
+            </a>
+            <p>{{x.sell_price}} MMK</p>
+            <p hidden class="quantity">1</p>
+            <button type="submit" class="btn btn-success add-cart"><i class="bi bi-bag"></i> Add to Cart</button>
+
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h3>Cannot find products</h3>
+<div class="p-2"><a href="{% url 'add_cart'%}?{{product}}=1" class="btn btn-success btn-lg">Cart</a></div>
+  <div class="p-2"><a href="{% url 'index'%}" class="btn btn-success btn-lg">Store</a></div>
+{% endif %}
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  let data = {};
+
+  const addCartBtns = document.querySelectorAll(".add-cart");
+  const pName = document.querySelectorAll(".name");
+  const pQuantity = document.querySelectorAll(".quantity");
+
+  addCartBtns.forEach((btn, i) => {
+    btn.addEventListener("click", function() {
+      btn.innerHTML = '<i class="bi bi-bag-check-fill"></i> Added';
+      let currentName = pName[i].innerHTML; // Use innerHTML, not getInnerHTML()
+      let currentQuantity = pQuantity[i].innerHTML; // Use innerHTML, not getInnerHTML()
+      data[currentName] = currentQuantity;
+
+      sessionStorage.setItem('products', JSON.stringify(data)); // Store data as JSON string
+    });
+  });
+});
+</script>
+
+
+{% endblock %}

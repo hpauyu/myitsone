@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container-fluid">
+<table class="table fs-6">
+<thead class="table-success">
+<th>Name</th>
+<th>Quantity</th>
+<th>Total</th>
+</thead>
+    {% for product in products %}
+    <tr>
+        <td class="name">{{product.name}}</td>
+        <td><p class="">{{product.quantity}}</p></td>
+        <td><p class="total">{{product.total}} MMK</p></td>
+    </tr>
+    {% endfor %}
+    <tr><td>Delivery Fee</td>
+    <td></td>
+    <td class="total">2000 MMK</td></tr>
+    <tr><th colspan="2" >Overall Total</th>
+    <th id="total_cost" colspan="2">123231 MMK</th>
+        </tr>
+</table>
+<form action="{% url 'add_order' %}" method="POST">
+    {% csrf_token %}
+    {{user_address_form|crispy}}
+    <input type="hidden" id="form_total" name="total">
+ <button type="submit" class="btn btn-success">Complete Check Out</button>
+    </form>
+
+
+
+</div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const totalElements = document.querySelectorAll(".total");
+    let total = 0;
+
+    totalElements.forEach(totalElement => {
+        let currentTotal = parseInt(totalElement.textContent);
+        if (!isNaN(currentTotal)) {
+            total += currentTotal;
+        }
+    });
+
+    const totalCostElement = document.getElementById("total_cost");
+    if (totalCostElement) {
+        totalCostElement.innerHTML = total + " MMK";
+    }
+    const totalCostForm = document.getElementById("form_total");
+    if (totalCostForm) {
+        totalCostForm.value = total;
+    }
+});
+
+
+</script>
+
+
+{% endblock %}

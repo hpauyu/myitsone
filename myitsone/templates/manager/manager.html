@@ -1,0 +1,46 @@
+{% extends "manager/base.html" %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-4">
+        <h3>Order Status</h3>
+        <p>Pending order</p>
+        <p>Delivering Order</p>
+        <p>Delivered Order</p>
+        <p>Completed Order</p>
+    </div>
+    <div class="col-lg-4">
+        <h3>Inventory Status</h3>
+        <p>Product below 40 %</p>
+        <p>Total Products</p>
+    </div>
+    <div class="col-lg-4">Delivery</div>
+</div>
+<div class="table-responsive">
+    <table class="table fs-6">
+        <thead>
+        <tr>
+            <th>Order_id</th>
+            <th>Address</th>
+            <th>Amount</th>
+            <th>Payment</th>
+            <th>Payment Status</th>
+            <th>Order Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{order.order_id}}</td>
+            <td>{{order.user_address}}</td>
+            <td>{{order.amount}} MMK</td>
+            <td>{{order.user_payment}}</td>
+            <td>{{order.payment_status}}<a href="" class="btn btn-success">Completed</a></td>
+            <td>{{order.order_status}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

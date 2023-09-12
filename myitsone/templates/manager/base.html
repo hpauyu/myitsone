@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/b7b53e12cb.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manager Panel</title>
+<!--    bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!--    bootstrap-->
+
+</head>
+<body>
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-sm bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'manager'%}">
+      Manager
+    </a>
+      <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Order</a>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="{% url 'pending-orders'%}">Pending</a></li>
+    <li><a class="dropdown-item" href="{% url 'confirmed-orders'%}">Confirmed</a></li>
+    <li><a class="dropdown-item" href="{% url 'out-for-delivery-orders'%}">Out for Delivery</a></li>
+      <li><a class="dropdown-item" href="{% url 'completed-orders'%}">Completed</a></li>
+  </ul>
+</li>
+          <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Product</a>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="{% url 'add_product'%}">Add</a></li>
+      <li><a class="dropdown-item" href="{% url 'all_products'%}">All Products</a></li>
+  </ul>
+</li>
+
+          <li class="nav-item">
+               <a class="nav-link" href="#">log Out</a>
+          </li>
+    </ul>
+  </div>
+</nav>
+
+{% block content %}{% endblock %}
+    </div>
+</body>
+</html>
